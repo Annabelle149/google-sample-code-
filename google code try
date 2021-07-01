@@ -1,0 +1,132 @@
+"""A youtube terminal simulator."""
+from .video_player import VideoPlayer
+from .command_parser import CommandException
+from .command_parse
+import youtube
+import re
+from src.video_player import VideoPlayer
+
+if __name__ == "__main__":
+    print("""Hello and welcome to YouTube, what would you like to do?
+    Enter HELP for list of available commands or EXIT to terminate.""")
+    video_player = VideoPlayer()
+    parser = CommandParser(video_player)
+    while True:
+        command = input("YT> ")
+        if command.upper() == "EXIT":
+            break
+        try:
+            parser.execute_command(command.split())
+        except CommandException as e:
+            print(e)
+    print("YouTube has now terminated its execution. "
+          "Thank you and goodbye!")
+
+   def number_of_videos(self):
+        num_videos = len(self._video_library.get_all_videos())
+        print(f"{num_videos} videos in the library")
+
+        def test_number_of_videos(capfd):
+            player = VideoPlayer()
+            player.number_of_videos()
+            out, err = capfd.readouterr()
+            assert "5 videos in the library" in out
+
+ def show_all_videos(self):
+        """Returns all videos."""
+
+        print("show_all_videos needs implementation")
+
+        def play_video(self, video_id):
+            """Plays the respective video.
+
+            Args:
+                video_id: The video_id to be played.
+            """
+            print("play_video needs implementation")
+def test_show_all_videos(capfd):
+    player = VideoPlayer()
+    player.show_all_videos()
+    out, err = capfd.readouterr()
+    lines = out.splitlines()
+    assert len(lines) == 6
+    assert "Here's a list of all available videos:" in lines[0]
+    assert "Amazing Cats (amazing_cats_video_id) [#cat #animal]" in lines[1]
+    assert "Another Cat Video (another_cat_video_id) [#cat #animal]" in lines[2]
+    assert "Funny Dogs (funny_dogs_video_id) [#dog #animal]" in lines[3]
+    assert "Life at Google (life_at_google_video_id) [#google #career]" in lines[4]
+    assert "Video about nothing (nothing_video_id) []" in lines[5]
+
+
+    def play_video(self, video_id):
+        """Plays the respective video.
+
+        Args:
+            video_id: The video_id to be played.
+        """
+        print("play_video needs implementation")
+
+    def test_play_video(capfd):
+        player = VideoPlayer()
+        player.play_video("amazing_cats_video_id")
+        out, err = capfd.readouterr()
+        lines = out.splitlines()
+        assert len(lines) == 1
+        assert "Playing video: Amazing Cats" in out
+
+
+    def stop_video(self):
+        """Stops the current video."""
+
+        print("stop_video needs implementation")
+
+    def test_play_video_stop_previous(capfd):
+        player = VideoPlayer()
+        player.play_video("amazing_cats_video_id")
+        player.play_video("funny_dogs_video_id")
+        out, err = capfd.readouterr()
+        lines = out.splitlines()
+        assert len(lines) == 3
+        assert "Playing video: Amazing Cats" in lines[0]
+        assert "Stopping video: Amazing Cats" in lines[1]
+        assert "Playing video: Funny Dogs" in lines[2]
+
+    def play_random_video(self):
+        """Plays a random video from the video library."""
+
+        print("play_random_video needs implementation")
+
+    def pause_video(self):
+        """Pauses the current video."""
+
+        print("pause_video needs implementation")
+
+    def test_play_random_video(capfd):
+        player = VideoPlayer()
+        player.play_random_video()
+        out, err = capfd.readouterr()
+        lines = out.splitlines()
+        assert len(lines) == 1
+        assert re.match(
+            "Playing video: (Amazing Cats|Another Cat Video|Funny Dogs|Life at Google|Video about nothing)",
+            out)
+    def continue_video(self):
+        """Resumes playing the current video."""
+
+        print("continue_video needs implementation")
+
+    def show_playing(self):
+        """Displays video currently playing."""
+
+        print("show_playing needs implementation")
+def test_continue_video(capfd):
+    player = VideoPlayer()
+    player.play_video("amazing_cats_video_id")
+    player.pause_video()
+    player.continue_video()
+    out, err = capfd.readouterr()
+    lines = out.splitlines()
+    assert len(lines) == 3
+    assert "Playing video: Amazing Cats" in lines[0]
+    assert "Pausing video: Amazing Cats" in lines[1]
+    assert "Continuing video: Amazing Cats" in lines[2]
